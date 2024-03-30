@@ -3,7 +3,30 @@ type AttributeConstructorProps = {
   value: number;
 };
 
-const ATTRIBUTE_TYPES = ['agility', 'strength'] as const;
+const ATTRIBUTE_TYPES = [
+  'agility',
+  'strength',
+  'luck',
+  'intelligence',
+  'wise',
+  'range',
+  'pa',
+  'pm',
+  'summon',
+  'critical',
+  'initiative',
+  'prospecting',
+  'vitality',
+  'power',
+  'damage',
+  'percent-damage',
+  'heals',
+  'earth-resistance',
+  'fire-resistance',
+  'water-resistance',
+  'air-resistance',
+  'neutral-resistance',
+] as const;
 export type AttributeType = (typeof ATTRIBUTE_TYPES)[number];
 
 export class Attribute {

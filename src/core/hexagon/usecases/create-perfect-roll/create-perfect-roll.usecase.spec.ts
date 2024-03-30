@@ -5,6 +5,23 @@ import { CreatePerfectRollUseCase } from './create-perfect-roll.usecase';
 import { StubRunesRepository } from '../../../infra/gateways/repositories/stub-runes.repository';
 import { runeBuilder } from '../../__tests__/rune.builder';
 
+const runeStrength = runeBuilder()
+  .withName('Rune Ra Fo')
+  .withType('strength')
+  .withValue(10)
+  .build();
+
+const runeStrengthLow = runeBuilder()
+  .withName('Rune Pa Fo')
+  .withType('strength')
+  .withValue(3)
+  .build();
+const runeAgility = runeBuilder()
+  .withName('Rune Ra Age')
+  .withType('agility')
+  .withValue(1)
+  .build();
+
 describe('Feature: Create perfect roll', () => {
   let craftGateway: StubCraftGateway;
   let itemsRepository: StubItemRepository;
@@ -31,6 +48,9 @@ describe('Feature: Create perfect roll', () => {
       })
       .build();
     itemsRepository.givenItems([perfectSword]);
+
+    runesRepository.givenRunes([runeStrength]);
+
     craftGateway.item = swordBuilder
       .withAttributes({
         type: 'strength',
@@ -39,15 +59,7 @@ describe('Feature: Create perfect roll', () => {
       .build();
 
     craftGateway.givenInventoryRunes([{ name: 'Rune Ra Fo', count: 1 }]);
-    craftGateway.givenItemWithRune('Rune Ra Fo', perfectSword);
-
-    runesRepository.givenRunes([
-      runeBuilder()
-        .withName('Rune Ra Fo')
-        .withType('strength')
-        .withValue(1)
-        .build(),
-    ]);
+    craftGateway.givenItemWithRune(runeStrength, perfectSword);
 
     await createPerfectRoll.execute();
 
@@ -73,16 +85,10 @@ describe('Feature: Create perfect roll', () => {
       })
       .build();
 
-    runesRepository.givenRunes([
-      runeBuilder()
-        .withName('Rune Ra Age')
-        .withType('agility')
-        .withValue(1)
-        .build(),
-    ]);
+    runesRepository.givenRunes([runeAgility]);
 
     craftGateway.givenInventoryRunes([{ name: 'Rune Ra Age', count: 1 }]);
-    craftGateway.givenItemWithRune('Rune Ra Age', perfectSword);
+    craftGateway.givenItemWithRune(runeAgility, perfectSword);
 
     await createPerfectRoll.execute();
 
@@ -108,24 +114,13 @@ describe('Feature: Create perfect roll', () => {
       })
       .build();
 
-    runesRepository.givenRunes([
-      runeBuilder()
-        .withName('Rune Ra Fo')
-        .withType('strength')
-        .withValue(1)
-        .build(),
-      runeBuilder()
-        .withName('Rune Ra Age')
-        .withType('agility')
-        .withValue(1)
-        .build(),
-    ]);
+    runesRepository.givenRunes([runeStrength, runeAgility]);
 
     craftGateway.givenInventoryRunes([
       { name: 'Rune Ra Fo', count: 1 },
       { name: 'Rune Ra Age', count: 1 },
     ]);
-    craftGateway.givenItemWithRune('Rune Ra Age', perfectSword);
+    craftGateway.givenItemWithRune(runeAgility, perfectSword);
 
     await createPerfectRoll.execute();
 
@@ -168,24 +163,13 @@ describe('Feature: Create perfect roll', () => {
         })
         .build();
 
-      runesRepository.givenRunes([
-        runeBuilder()
-          .withName('Rune Pa Fo')
-          .withType('strength')
-          .withValue(3)
-          .build(),
-        runeBuilder()
-          .withName('Rune Ra Fo')
-          .withType('strength')
-          .withValue(10)
-          .build(),
-      ]);
+      runesRepository.givenRunes([runeStrength, runeAgility]);
 
       craftGateway.givenInventoryRunes([
         { name: 'Rune Ra Fo', count: 1 },
         { name: 'Rune Pa Fo', count: 1 },
       ]);
-      craftGateway.givenItemWithRune('Rune Ra Fo', perfectSword);
+      craftGateway.givenItemWithRune(runeStrength, perfectSword);
 
       await createPerfectRoll.execute();
 
@@ -211,21 +195,10 @@ describe('Feature: Create perfect roll', () => {
         })
         .build();
 
-      runesRepository.givenRunes([
-        runeBuilder()
-          .withName('Rune Pa Fo')
-          .withType('strength')
-          .withValue(3)
-          .build(),
-        runeBuilder()
-          .withName('Rune Ra Fo')
-          .withType('strength')
-          .withValue(10)
-          .build(),
-      ]);
+      runesRepository.givenRunes([runeStrengthLow, runeStrength]);
 
       craftGateway.givenInventoryRunes([{ name: 'Rune Pa Fo', count: 1 }]);
-      craftGateway.givenItemWithRune('Rune Pa Fo', perfectSword);
+      craftGateway.givenItemWithRune(runeStrengthLow, perfectSword);
 
       await createPerfectRoll.execute();
 
@@ -264,25 +237,14 @@ describe('Feature: Create perfect roll', () => {
       )
       .build();
 
-    runesRepository.givenRunes([
-      runeBuilder()
-        .withName('Rune Ra Age')
-        .withType('agility')
-        .withValue(1)
-        .build(),
-      runeBuilder()
-        .withName('Rune Ra Fo')
-        .withType('strength')
-        .withValue(1)
-        .build(),
-    ]);
+    runesRepository.givenRunes([runeAgility, runeStrength]);
 
     craftGateway.givenInventoryRunes([
       { name: 'Rune Ra Age', count: 1 },
       { name: 'Rune Ra Fo', count: 1 },
     ]);
     craftGateway.givenItemWithRune(
-      'Rune Ra Age',
+      runeAgility,
       swordBuilder
         .withAttributes(
           {
@@ -297,7 +259,7 @@ describe('Feature: Create perfect roll', () => {
         .build(),
     );
 
-    craftGateway.givenItemWithRune('Rune Ra Fo', perfectSword);
+    craftGateway.givenItemWithRune(runeStrength, perfectSword);
 
     await createPerfectRoll.execute();
 

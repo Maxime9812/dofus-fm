@@ -1,6 +1,7 @@
 import { CraftGateway } from '../../../hexagon/gateways/craft.gateway';
 import { Item } from '../../../hexagon/models/item';
 import { InventoryRune } from '../../../hexagon/models/inventory-rune';
+import { Rune } from '../../../hexagon/models/rune';
 
 export class StubCraftGateway implements CraftGateway {
   item: Item;
@@ -10,8 +11,8 @@ export class StubCraftGateway implements CraftGateway {
     return this.item;
   }
 
-  async applyRune(runeName: string): Promise<void> {
-    this.item = this.itemWithRune.get(runeName);
+  async applyRune(rune: Rune): Promise<void> {
+    this.item = this.itemWithRune.get(rune.name);
   }
 
   async getInventoryRunes(): Promise<InventoryRune[]> {
@@ -22,7 +23,7 @@ export class StubCraftGateway implements CraftGateway {
     this.runes = runes;
   }
 
-  givenItemWithRune(runeName: string, item: Item) {
-    this.itemWithRune.set(runeName, item);
+  givenItemWithRune(rune: Rune, item: Item) {
+    this.itemWithRune.set(rune.name, item);
   }
 }

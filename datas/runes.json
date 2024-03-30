@@ -1,0 +1,86 @@
+{
+  "strength": [
+    {
+      "name": "Rune Ra Fo",
+      "value": 10
+    },
+    {
+      "name": "Rune Pa Fo",
+      "value": 3
+    },
+    {
+      "name": "Rune Fo",
+      "value": 1
+    }
+  ],
+  "agility": [
+    {
+      "name": "Rune Ra Age",
+      "value": 10
+    },
+    {
+      "name": "Rune Pa Age",
+      "value": 3
+    },
+    {
+      "name": "Rune Age",
+      "value": 1
+    }
+  ],
+  "luck": [
+    {
+      "name": "Rune Ra Cha",
+      "value": 10
+    },
+    {
+      "name": "Rune Pa Cha",
+      "value": 3
+    },
+    {
+      "name": "Rune Cha",
+      "value": 1
+    }
+  ],
+  "wise": [
+    {
+      "name": "Rune Ra Sa",
+      "value": 10
+    },
+    {
+      "name": "Rune Pa Sa",
+      "value": 3
+    },
+    {
+      "name": "Rune Sa",
+      "value": 1
+    }
+  ],
+  "intelligence": [
+    {
+      "name": "Rune Ra Ine",
+      "value": 10
+    },
+    {
+      "name": "Rune Pa Ine",
+      "value": 3
+    },
+    {
+      "name": "Rune Ine",
+      "value": 1
+    }
+  ],
+  "prospection": [
+    {
+      "name": "Rune Ra Ine",
+      "value": 10
+    },
+    {
+      "name": "Rune Pa Ine",
+      "value": 3
+    },
+    {
+      "name": "Rune Ine",
+      "value": 1
+    }
+  ]
+}
