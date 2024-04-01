@@ -7,7 +7,8 @@
   "private": true,
   "scripts": {
     "test": "jest -c ./tests/jest-unit.config.js",
-    "test:it": "jest -c ./tests/jest-it.config.js"
+    "test:it": "jest -c ./tests/jest-it.config.js",
+    "test:all": "jest -c ./tests/jest-all.config.js"
   },
   "devDependencies": {
     "@types/jest": "^29.5.12",

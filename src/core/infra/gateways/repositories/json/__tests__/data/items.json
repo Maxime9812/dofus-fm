@@ -1,0 +1,14 @@
+{
+  "Ceinture Toré": {
+    "luck": 50,
+    "intelligence": 50,
+    "wise": 30,
+    "vitality": 301,
+    "critical": 2,
+    "damage": 5,
+    "heals": 5,
+    "range": 1,
+    "percent-damage": 10,
+    "prospecting": 20
+  }
+}

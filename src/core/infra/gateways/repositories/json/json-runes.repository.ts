@@ -6,6 +6,8 @@ export class JsonRunesRepository implements RunesRepository {
   constructor(private readonly jsonPath: string) {}
 
   async findByType(type: AttributeType): Promise<Rune[]> {
-    return [];
+    const runes: Record<AttributeType, { name: string; value: number }[]> =
+      await import(this.jsonPath);
+    return runes[type].map((rune) => Rune.fromSnapshot({ ...rune, type }));
   }
 }

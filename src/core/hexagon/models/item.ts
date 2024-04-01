@@ -32,6 +32,10 @@ export class Item {
     });
   }
 
+  isPerfect(perfectItem: Item): boolean {
+    return !this.getAttributeToImprove(perfectItem);
+  }
+
   static fromSnapshot(snapshot: ItemSnapshot): Item {
     const attributes = new ItemAttributes();
     snapshot.attributes.forEach((s) => {

@@ -5,16 +5,58 @@ import { GameScreenCapture } from './game-screen-capture';
 import { recognize } from 'tesseract.js';
 import { AttributeType } from '../../../../hexagon/models/attribute';
 import { Rune } from '../../../../hexagon/models/rune';
+import { MouseGateway } from './mouse.gateway';
+
+export type OCRConfig = {
+  inventory: {
+    position: {
+      x: number;
+      y: number;
+    };
+    slots: {
+      count: {
+        x: number;
+        y: number;
+      };
+      size: {
+        width: number;
+        height: number;
+      };
+    };
+  };
+};
 
 export class OCRCraftGateway implements CraftGateway {
-  constructor(private readonly gameScreenCapture: GameScreenCapture) {}
+  constructor(
+    private readonly gameScreenCapture: GameScreenCapture,
+    private readonly mouseGateway: MouseGateway,
+    private readonly config: OCRConfig,
+  ) {}
 
   async applyRune(rune: Rune): Promise<void> {
     return undefined;
   }
 
   async getInventoryRunes(): Promise<InventoryRune[]> {
-    return [];
+    const inventory: InventoryRune[] = [];
+    for (let i = 0; i < this.config.inventory.slots.count.x; i++) {
+      for (let j = 0; j < this.config.inventory.slots.count.y; j++) {
+        const name = await this.getRuneName();
+        if (!name) break;
+        inventory.push({ name, count: 1 });
+      }
+    }
+
+    return inventory;
+  }
+
+  private async getRuneName() {
+    const runeNameImage = await this.gameScreenCapture.getRuneNameImage();
+    const result = await recognize(runeNameImage, 'fra');
+    return result.data.text
+      .trim()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '');
   }
 
   async getItem(): Promise<Item | undefined> {

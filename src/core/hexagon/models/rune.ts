@@ -19,10 +19,6 @@ export class Rune {
     return this.props.value;
   }
 
-  isTypeOf(type: AttributeType) {
-    return this.props.type === type;
-  }
-
   isMoreThan(rune: Rune): boolean {
     return this.props.value > rune.value;
   }

@@ -14,19 +14,19 @@ export class CreatePerfectRollUseCase {
 
   async execute() {
     const item = await this.craftGateway.getItem();
-    await this.rollItem(item);
+    const perfectItem = await this.itemsRepository.findByName(item.name);
+    await this.rollItem(item, perfectItem);
   }
 
-  private async rollItem(item: Item) {
-    const attributeToImprove = await this.getAttributeToImprove(item);
+  private async rollItem(item: Item, perfectItem: Item) {
+    if (item.isPerfect(perfectItem)) return;
 
-    const isPerfect = !attributeToImprove;
-    if (isPerfect) return;
+    const attributeToImprove = item.getAttributeToImprove(perfectItem);
 
     const runeToApply = await this.getRuneForAttribute(attributeToImprove);
 
     await this.craftGateway.applyRune(runeToApply);
-    await this.rollItem(await this.craftGateway.getItem());
+    await this.rollItem(await this.craftGateway.getItem(), perfectItem);
   }
 
   private async getRuneForAttribute(attribute: Attribute) {
@@ -39,11 +39,6 @@ export class CreatePerfectRollUseCase {
     );
 
     return this.getRuneWithHighestValue(runesInInventory);
-  }
-
-  private async getAttributeToImprove(item: Item) {
-    const perfectItem = await this.itemsRepository.findByName(item.name);
-    return item.getAttributeToImprove(perfectItem);
   }
 
   private getRuneWithHighestValue(runes: Rune[]) {
