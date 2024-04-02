@@ -20,8 +20,8 @@ const config = {
     },
     slots: {
       count: {
-        x: 1,
-        y: 1,
+        x: 6,
+        y: 6,
       },
       size: {
         width: 1,
@@ -170,6 +170,7 @@ describe('OCR Craft Gateway', () => {
 
       expect(inventoryRunes).toEqual([
         inventoryRuneBuilder().withName('Rune Pa Age').build(),
+
         inventoryRuneBuilder().withName('Rune Ra Age').build(),
       ]);
     });

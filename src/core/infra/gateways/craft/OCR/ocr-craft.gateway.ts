@@ -39,8 +39,8 @@ export class OCRCraftGateway implements CraftGateway {
 
   async getInventoryRunes(): Promise<InventoryRune[]> {
     const inventory: InventoryRune[] = [];
-    for (let i = 0; i < this.config.inventory.slots.count.x; i++) {
-      for (let j = 0; j < this.config.inventory.slots.count.y; j++) {
+    for (let x = 0; x < this.config.inventory.slots.count.x; x++) {
+      for (let y = 0; y < this.config.inventory.slots.count.y; y++) {
         const name = await this.getRuneName();
         if (!name) break;
         inventory.push({ name, count: 1 });
